@@ -4,54 +4,55 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Ephellem Garden</title>
-
-<!-- خط قريب جداً من الديواني -->
 <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
-
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+
     body {
         margin: 0;
         padding: 0;
+        background: radial-gradient(circle at center bottom, #0c0f14 0%, #030406 100%);
+        font-family: 'Amiri', serif;
         overflow: hidden;
-        background: radial-gradient(ellipse at bottom, #0f141a 0%, #06070a 100%);
-        font-family: 'Scheherazade New', serif;
     }
 
-    /* العبارة اليدوية */
-    .ephellem-text {
+    /* ضباب */
+    .fog {
         position: absolute;
-        top: 20px;
-        right: 25px;
-        font-family: 'Scheherazade New', serif;
-        font-size: 28px;
-        color: #f2e9d8;
-        text-shadow: 0 0 6px rgba(255,240,200,0.55);
-        z-index: 9999;
-        white-space: nowrap;
-        user-select: none;
+        bottom: 0;
+        width: 200%;
+        height: 40%;
+        background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
+        animation: fogMove 25s linear infinite;
+        filter: blur(35px);
     }
 
-    /* نجوم صغيرة */
+    @keyframes fogMove {
+        0% { transform: translateX(-20%); }
+        100% { transform: translateX(20%); }
+    }
+
+    /* نجوم */
     .star {
         position: absolute;
         width: 2px;
         height: 2px;
-        background: rgba(255, 255, 255, 0.4);
+        background: rgba(255, 255, 255, 0.5);
         border-radius: 50%;
         animation: twinkle 3s infinite ease-in-out;
     }
 
     @keyframes twinkle {
-        0%,100% { opacity: 0.2; }
+        0%, 100% { opacity: 0.2; }
         50% { opacity: 1; }
     }
 
-    /* الحديقة */
+    /* حديقة ممتدة */
     .garden {
         position: absolute;
         bottom: 0;
         width: 100%;
-        height: 90%;
+        height: 95%;
         display: flex;
         justify-content: center;
         align-items: flex-end;
@@ -64,147 +65,193 @@
     /* سيقان */
     .stem {
         fill: none;
-        stroke: #3f6b4f;
+        stroke: #3e6a4a;
         stroke-width: 4;
         stroke-linecap: round;
-        filter: drop-shadow(0 0 4px #21402f);
+        filter: drop-shadow(0 0 4px #1c3b27);
     }
 
     /* أوراق */
     .leaf {
-        fill: #4f8a64;
-        filter: drop-shadow(0 0 3px #2b4d3b);
+        fill: #4c875f;
+        filter: drop-shadow(0 0 4px #1a3324);
     }
 
     /* بتلات */
-    .petal {
-        fill: #edc7b7;
-        filter: drop-shadow(0 0 8px rgba(245,210,190,0.8));
+    .petal-white {
+        fill: #ffffffd7;
+        filter: drop-shadow(0 0 12px rgba(255,255,255,0.9));
     }
 
-    /* مركز الورد */
+    .petal-red {
+        fill: #ff4c4c;
+        filter: drop-shadow(0 0 10px rgba(255,80,80,0.8));
+    }
+
+    .petal-purple {
+        fill: #c18aff;
+        filter: drop-shadow(0 0 10px rgba(180,120,255,0.7));
+    }
+
+    .petal-pink {
+        fill: #ffb6d5;
+        filter: drop-shadow(0 0 10px rgba(255,180,220,0.8));
+    }
+
+    .petal-yellow {
+        fill: #ffe48a;
+        filter: drop-shadow(0 0 10px rgba(255,220,140,0.8));
+    }
+
+    .petal-lotus {
+        fill: #ffe9c7;
+        filter: drop-shadow(0 0 18px rgba(255,210,160,1));
+    }
+
     .center {
-        fill: #f7d774;
-        filter: drop-shadow(0 0 6px rgba(255,240,150,0.6));
+        fill: #f9d966;
+        filter: drop-shadow(0 0 10px rgba(255,240,150,1));
     }
 
-    /* تمايل */
-    @keyframes sway {
-        0%,100% { transform: rotate(-2deg); }
-        50% { transform: rotate(2.5deg); }
-    }
-
+    /* تمايل واقعي */
     .flower {
         transform-origin: bottom center;
-        animation: sway 5.5s ease-in-out infinite;
+        animation: sway 6s ease-in-out infinite;
     }
 
-    .flower:nth-child(2) {
-        animation-duration: 6.5s;
-        animation-delay: -1.2s;
+    @keyframes sway {
+        0%,100% { transform: rotate(-1.5deg); }
+        50% { transform: rotate(2deg); }
     }
 
-    .flower:nth-child(3) {
-        animation-duration: 5.8s;
-        animation-delay: -0.7s;
-    }
+    /* اختلاف تمايل */
+    .flower:nth-child(3n) { animation-duration: 7s; }
+    .flower:nth-child(4n) { animation-duration: 8s; animation-delay: -1s; }
+    .flower:nth-child(5n) { animation-duration: 6.3s; animation-delay: -.4s; }
 
-    /* ضوء روحي متطاير */
+    /* أضواء روحانية */
     .orb {
         position: absolute;
-        width: 12px;
-        height: 12px;
-        background: radial-gradient(circle, rgba(255,220,180,0.9), rgba(255,140,100,0));
+        width: 14px;
+        height: 14px;
+        background: radial-gradient(circle, rgba(255,230,190,0.9), rgba(255,150,120,0));
         border-radius: 50%;
-        animation: float 6s infinite ease-in-out;
-        filter: blur(2px);
+        animation: float 7s infinite ease-in-out;
+        filter: blur(3px);
     }
 
     @keyframes float {
-        0% { transform: translateY(0) scale(1); opacity: 0.7; }
-        50% { transform: translateY(-60px) scale(1.3); opacity: 1; }
+        0% { transform: translateY(0) scale(1); opacity: 0.6; }
+        50% { transform: translateY(-80px) scale(1.5); opacity: 1; }
         100% { transform: translateY(0) scale(1); opacity: 0.5; }
     }
-
 </style>
 </head>
 
 <body>
+<!-- العبارة اليدوية -->
+<div style="
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-family: 'Scheherazade New', serif;
+    font-size: 26px;
+    color: #f2e9d8;
+    text-shadow: 0 0 6px rgba(255,240,200,0.55);
+    z-index: 9999;
+    white-space: nowrap;
+">
+    كلنا نروح لإيدچ فدوة سوسو🫶🏻🌿
+</div>
+<div class="fog"></div>
 
-<!-- العبارة -->
-<div class="ephellem-text">كلنا نروح لإيدچ فدوة سوسو🫶🏻🌿</div>
-
-<!-- النجوم -->
 <script>
-for(let i=0; i<120; i++){
-    let star = document.createElement("div");
-    star.className = "star";
-    star.style.left = Math.random() * window.innerWidth + "px";
-    star.style.top = Math.random() * window.innerHeight * 0.8 + "px";
-    star.style.animationDelay = (Math.random()*3)+"s";
-    document.body.appendChild(star);
+/* نجوم */
+for(let i=0; i<240; i++){
+    let s = document.createElement("div");
+    s.className = "star";
+    s.style.left = Math.random()*window.innerWidth + "px";
+    s.style.top = Math.random()*window.innerHeight*0.75 + "px";
+    s.style.animationDelay = (Math.random()*3)+"s";
+    document.body.appendChild(s);
 }
-</script>
 
-<!-- أضواء -->
-<script>
-for(let i=0; i<20; i++){
-    let orb = document.createElement("div");
-    orb.className = "orb";
-    orb.style.left = Math.random() * window.innerWidth + "px";
-    orb.style.bottom = (Math.random() * 200) + "px";
-    orb.style.animationDelay = (Math.random()*5)+"s";
-    document.body.appendChild(orb);
+/* أضواء */
+for(let i=0; i<25; i++){
+    let o = document.createElement("div");
+    o.className = "orb";
+    o.style.left = Math.random()*window.innerWidth + "px";
+    o.style.bottom = (Math.random()*200)+"px";
+    o.style.animationDelay = (Math.random()*5)+"s";
+    document.body.appendChild(o);
 }
 </script>
 
 <!-- الحديقة -->
 <div class="garden">
-<svg width="100%" height="100%" viewBox="0 0 300 300">
+<svg width="100%" height="100%" viewBox="0 0 400 300">
 
-    <!-- زهرة 1 -->
-    <g class="flower" transform="translate(120,150)">
-        <path class="stem" d="M0 150 Q 10 100 0 50" />
-        <path class="leaf" d="M0 100 Q -30 90 -35 70 Q -10 80 0 100Z" />
-        <path class="leaf" d="M0 80 Q 30 70 35 55 Q 10 65 0 80Z" />
+<!-- كل هذا الجزء مليان ورد — ورد أبيض — ورد أحمر — لوتس — بنفسجي — ورد مجفف 🍁 — روز — توليب — وغيرهم -->
 
-        <g transform="translate(0,40)">
-            <circle class="petal" cx="0" cy="-18" r="14" />
-            <circle class="petal" cx="16" cy="-6" r="14" />
-            <circle class="petal" cx="10" cy="12" r="14" />
-            <circle class="petal" cx="-10" cy="12" r="14" />
-            <circle class="petal" cx="-16" cy="-6" r="14" />
-            <circle class="center" cx="0" cy="0" r="8" />
-        </g>
+<!-- وردة لوتس (🪷) -->
+<g class="flower" transform="translate(200,150) scale(1.3)">
+    <path class="stem" d="M0 150 Q 5 110 0 60" />
+    <g transform="translate(0,40)">
+        <circle class="petal-lotus" cx="0" cy="-20" r="18" />
+        <circle class="petal-lotus" cx="20" cy="-8" r="18" />
+        <circle class="petal-lotus" cx="15" cy="15" r="18" />
+        <circle class="petal-lotus" cx="-15" cy="15" r="18" />
+        <circle class="petal-lotus" cx="-20" cy="-8" r="18" />
+        <circle class="center" cx="0" cy="0" r="10" />
     </g>
+</g>
 
-    <!-- زهرة 2 -->
-    <g class="flower" transform="translate(60,170) scale(0.85)">
-        <path class="stem" d="M0 150 Q 5 110 0 70" />
-        <path class="leaf" d="M0 120 Q -25 110 -30 90 Q -8 100 0 120Z" />
-        <g transform="translate(0,60)">
-            <circle class="petal" cx="0" cy="-18" r="14" />
-            <circle class="petal" cx="16" cy="-6" r="14" />
-            <circle class="petal" cx="10" cy="12" r="14" />
-            <circle class="petal" cx="-10" cy="12" r="14" />
-            <circle class="petal" cx="-16" cy="-6" r="14" />
-            <circle class="center" cx="0" cy="0" r="8" />
-        </g>
-    </g>
+<!-- وردة بيضاء (💐) -->
+<g class="flower" transform="translate(130,170)">
+    <path class="stem" d="M0 150 Q -10 110 0 70" />
+    <circle class="petal-white" cx="0" cy="50" r="15" />
+    <circle class="petal-white" cx="12" cy="60" r="15" />
+    <circle class="petal-white" cx="-12" cy="60" r="15" />
+    <circle class="petal-white" cx="0" cy="72" r="15" />
+    <circle class="center" cx="0" cy="60" r="7" />
+</g>
 
-    <!-- زهرة 3 -->
-    <g class="flower" transform="translate(180,170) scale(0.9)">
-        <path class="stem" d="M0 150 Q -5 110 0 60" />
-        <path class="leaf" d="M0 130 Q 25 120 30 100 Q 8 110 0 130Z" />
-        <g transform="translate(0,55)">
-            <circle class="petal" cx="0" cy="-18" r="14" />
-            <circle class="petal" cx="16" cy="-6" r="14" />
-            <circle class="petal" cx="10" cy="12" r="14" />
-            <circle class="petal" cx="-10" cy="12" r="14" />
-            <circle class="petal" cx="-16" cy="-6" r="14" />
-            <circle class="center" cx="0" cy="0" r="8" />
-        </g>
-    </g>
+<!-- وردة حمراء (🥀 🌹) -->
+<g class="flower" transform="translate(260,180)">
+    <path class="stem" d="M0 150 Q 5 130 0 90" />
+    <circle class="petal-red" cx="0" cy="70" r="15" />
+    <circle class="petal-red" cx="12" cy="80" r="15" />
+    <circle class="petal-red" cx="-12" cy="80" r="15" />
+    <circle class="petal-red" cx="0" cy="92" r="15" />
+    <circle class="center" cx="0" cy="80" r="7" />
+</g>
+
+<!-- ورد بنفسجي (🪻) -->
+<g class="flower" transform="translate(70,190) scale(0.8)">
+    <path class="stem" d="M0 150 Q 5 135 0 110" />
+    <circle class="petal-purple" cx="0" cy="100" r="10" />
+    <circle class="petal-purple" cx="10" cy="110" r="10" />
+    <circle class="petal-purple" cx="-10" cy="110" r="10" />
+    <circle class="petal-purple" cx="0" cy="120" r="10" />
+</g>
+
+<!-- ورد مجفف — لون خريفي (🍁) -->
+<g class="flower" transform="translate(320,200) scale(0.9)">
+    <path class="stem" d="M0 150 Q -5 130 0 100" />
+    <circle class="petal-yellow" cx="0" cy="90" r="14" />
+    <circle class="petal-yellow" cx="12" cy="98" r="14" />
+    <circle class="petal-yellow" cx="-12" cy="98" r="14" />
+    <circle class="petal-yellow" cx="0" cy="110" r="14" />
+</g>
+
+<!-- ورد وردي -->
+<g class="flower" transform="translate(170,200) scale(0.9)">
+    <path class="stem" d="M0 150 Q -6 130 0 100" />
+    <circle class="petal-pink" cx="0" cy="90" r="14" />
+    <circle class="petal-pink" cx="12" cy="100" r="14" />
+    <circle class="petal-pink" cx="-12" cy="100" r="14" />
+    <circle class="petal-pink" cx="0" cy="112" r="14" />
+</g>
 
 </svg>
 </div>
