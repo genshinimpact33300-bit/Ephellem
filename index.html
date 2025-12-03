@@ -3,9 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أطلق تحية  | لست الحسن</title>
+    <title>حديقة سوسو | اطلق هدية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;700&family=Tajawal:wght@300;400&display=swap');
+        :root {
+            /* نظام ألوان احترافي */
+            --primary-white: #ffffff;
+            --soft-white: #f8f8f8;
+            --rose-white: #fff5f5;
+            --golden-light: #fff9e6;
+            --dark-bg: #0a0c14;
+            --darker-bg: #050709;
+            --accent-gold: #ffd700;
+            --soft-gold: #f3e5ab;
+            --rose-pink: #ffb6c1;
+            --lilac: #c8a2c8;
+            --lotus-pink: #f4c2c2;
+            --wine-red: #722f37;
+            --maple-red: #d2691e;
+            --emerald: #50c878;
+            --forest-green: #228b22;
+            --soft-glow: rgba(255, 255, 255, 0.1);
+        }
 
         * {
             margin: 0;
@@ -16,446 +35,935 @@
         body {
             margin: 0;
             padding: 0;
-            /* خلفية متدرجة غامقة مع تأثير نجوم */
-            background: radial-gradient(ellipse at bottom, #0a0e14 0%, #050709 100%);
+            background: radial-gradient(ellipse at center, 
+                var(--darker-bg) 0%, 
+                var(--dark-bg) 70%, 
+                #1a1f2e 100%);
             min-height: 100vh;
             overflow-x: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-family: 'Scheherazade New', 'Amiri', serif;
-            color: #f5f2e9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--soft-white);
             position: relative;
         }
 
-        /* تأثير النجوم في الخلفية */
-        .stars {
-            position: absolute;
+        /* طبقة التعتيم للخلفية */
+        .background-overlay {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(120, 90, 140, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(200, 160, 220, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 40% 80%, rgba(255, 215, 0, 0.03) 0%, transparent 40%);
             z-index: 1;
+            pointer-events: none;
         }
 
-        .star {
-            position: absolute;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            animation: twinkle 5s infinite ease-in-out;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        .container {
-            text-align: center;
+        /* الجسيمات المضيئة المتطايرة */
+        #particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 2;
-            position: relative;
-            margin-bottom: 20px;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background-color: var(--primary-white);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            filter: blur(1px);
+        }
+
+        .gold-particle {
+            background-color: var(--accent-gold);
+            box-shadow: 0 0 10px var(--accent-gold);
+        }
+
+        .white-particle {
+            background-color: var(--primary-white);
+            box-shadow: 0 0 8px var(--primary-white);
+        }
+
+        .pink-particle {
+            background-color: var(--rose-pink);
+            box-shadow: 0 0 8px var(--rose-pink);
+        }
+
+        /* الحاوية الرئيسية */
+        .main-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px;
-            max-width: 800px;
-        }
-
-        .title-container {
-            margin-bottom: 40px;
-            padding: 25px;
-            border-radius: 20px;
-            background: rgba(20, 25, 35, 0.5);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(120, 90, 140, 0.2);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4),
-                        0 0 40px rgba(120, 90, 140, 0.1);
+            z-index: 3;
             position: relative;
-            overflow: hidden;
         }
 
-        .title-container::before {
+        /* رأس الصفحة */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            position: relative;
+        }
+
+        .header::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(200, 160, 220, 0.7), 
-                rgba(240, 200, 120, 0.7), 
-                rgba(200, 160, 220, 0.7), 
-                transparent
-            );
-        }
-
-        h1 {
-            font-family: 'Amiri', serif;
-            font-size: 4rem;
-            margin-bottom: 15px;
-            color: #f0e6d2;
-            text-shadow: 0 0 20px rgba(240, 230, 210, 0.6),
-                         0 5px 15px rgba(0, 0, 0, 0.4);
-            letter-spacing: 1px;
-            position: relative;
-            display: inline-block;
-        }
-
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 150px;
+            width: 300px;
+            height: 100%;
+            background: radial-gradient(ellipse at center, 
+                rgba(255, 255, 255, 0.05) 0%, 
+                transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .title {
+            font-family: 'Amiri', 'Scheherazade New', serif;
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-white);
+            text-shadow: 
+                0 0 20px rgba(255, 255, 255, 0.8),
+                0 0 40px rgba(255, 215, 0, 0.5),
+                0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            display: inline-block;
+            letter-spacing: 2px;
+        }
+
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
             height: 3px;
             background: linear-gradient(90deg, 
                 transparent, 
-                rgba(240, 200, 120, 0.8), 
+                var(--accent-gold), 
                 transparent
             );
             border-radius: 3px;
         }
 
-        .heart {
-            display: inline-block;
-            animation: heartbeat 1.5s infinite ease-in-out;
-            margin: 0 10px;
-        }
-
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
-        p {
-            font-size: 1.8rem;
-            font-weight: 400;
-            margin-top: 10px;
+        .subtitle {
+            font-size: 2.2rem;
+            font-weight: 300;
+            color: var(--soft-gold);
+            margin-top: 15px;
             line-height: 1.6;
-            color: #d8d0c0;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-            max-width: 600px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
-            padding: 15px;
+            padding: 20px;
             border-radius: 15px;
-            background: rgba(30, 35, 45, 0.3);
-            backdrop-filter: blur(5px);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* حاوية رسم SVG للورود */
-        .flower-svg-container {
+        /* حاوية الحديقة */
+        .garden-container {
             position: relative;
-            width: 400px;
-            height: 400px;
-            margin: 30px auto;
+            width: 100%;
+            height: 600px;
+            margin: 40px auto;
+            overflow: hidden;
+            border-radius: 20px;
+            background: 
+                radial-gradient(ellipse at 30% 70%, rgba(10, 30, 20, 0.4) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 30%, rgba(30, 10, 20, 0.3) 0%, transparent 50%);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.7),
+                inset 0 0 100px rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 3;
+        }
+
+        /* الأرضية */
+        .ground {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to top, 
+                #2d1b0e 0%, 
+                #3a2515 30%, 
+                #4a301a 100%);
+            border-radius: 50% 50% 0 0;
+            box-shadow: inset 0 -10px 30px rgba(0, 0, 0, 0.5);
             z-index: 2;
-            filter: drop-shadow(0 0 15px rgba(200, 160, 220, 0.3));
         }
 
-        /* أنماط لرسم SVG والرسوم المتحركة */
-        .flower-stem {
-            fill: none;
-            stroke: #3a6b4a;
-            stroke-width: 4;
+        /* أنواع الورود المختلفة */
+        .flower {
+            position: absolute;
+            transform-origin: bottom center;
+            z-index: 3;
+        }
+
+        /* وردة بيضاء كلاسيكية */
+        .white-rose {
+            bottom: 150px;
+            left: 20%;
+            animation: sway 7s ease-in-out infinite;
+        }
+
+        .white-rose .stem {
+            stroke: var(--forest-green);
+            stroke-width: 6;
             stroke-linecap: round;
-            filter: drop-shadow(0 0 3px rgba(58, 107, 74, 0.5));
-        }
-
-        .flower-leaf {
-            fill: #4a7c59;
+            fill: none;
             filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
         }
 
-        .flower-petal {
-            fill: #e8a87c;
-            filter: url(#glow);
-            stroke: #d8946a;
+        .white-rose .petal {
+            fill: var(--primary-white);
+            stroke: var(--soft-white);
             stroke-width: 0.5;
+            filter: url(#white-glow);
         }
 
-        .flower-center {
-            fill: #f3d250;
-            filter: url(#glow-gold);
+        .white-rose .center {
+            fill: var(--soft-gold);
+            filter: url(#gold-glow);
         }
 
-        /* رسوم متحركة للتمايل الفيزيائي السلس */
-        @keyframes sway {
-            0%, 100% { 
-                transform: rotate(-4deg); 
-            }
-            50% { 
-                transform: rotate(4deg); 
-            }
-        }
-        
-        @keyframes leaf-wave {
-            0%, 100% { 
-                transform: rotate(-6deg) translateY(0); 
-            }
-            50% { 
-                transform: rotate(6deg) translateY(-3px); 
-            }
+        /* باقة زهور (💐) */
+        .bouquet {
+            bottom: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: gentle-sway 8s ease-in-out infinite;
         }
 
-        @keyframes gentle-float {
-            0%, 100% { 
-                transform: translateY(0); 
-            }
-            50% { 
-                transform: translateY(-10px); 
-            }
+        .bouquet .stem {
+            stroke: var(--emerald);
+            stroke-width: 8;
+            stroke-linecap: round;
+            fill: none;
         }
 
-        @keyframes petal-glow {
-            0%, 100% { 
-                opacity: 1; 
-                fill: #e8a87c;
-            }
-            50% { 
-                opacity: 0.9; 
-                fill: #f0b894;
-            }
+        .bouquet .flower-1 {
+            fill: var(--rose-pink);
+            filter: url(#pink-glow);
         }
 
-        /* تطبيق الرسوم المتحركة */
-        .swaying-flower {
-            transform-origin: bottom center;
+        .bouquet .flower-2 {
+            fill: var(--primary-white);
+            filter: url(#white-glow);
+        }
+
+        .bouquet .flower-3 {
+            fill: var(--lilac);
+            filter: url(#purple-glow);
+        }
+
+        .bouquet .leaf {
+            fill: var(--emerald);
+        }
+
+        /* زنبق (🪻) */
+        .hyacinth {
+            bottom: 150px;
+            left: 70%;
             animation: sway 6s ease-in-out infinite;
-        }
-        
-        .waving-leaf {
-             transform-origin: center;
-             animation: leaf-wave 5s ease-in-out infinite;
+            animation-delay: 1s;
         }
 
-        .floating {
-            animation: gentle-float 8s ease-in-out infinite;
+        .hyacinth .stem {
+            stroke: var(--forest-green);
+            stroke-width: 5;
+            stroke-linecap: round;
+            fill: none;
         }
 
-        .glowing-petal {
-            animation: petal-glow 4s ease-in-out infinite;
+        .hyacinth .flower-cluster {
+            fill: var(--lilac);
+            opacity: 0.9;
+            filter: url(#purple-glow);
         }
 
-        /* رسوم متحركة لكل بتلة بشكل فردي */
-        .petal-1 { animation-delay: 0s; }
-        .petal-2 { animation-delay: 0.2s; }
-        .petal-3 { animation-delay: 0.4s; }
-        .petal-4 { animation-delay: 0.6s; }
-        .petal-5 { animation-delay: 0.8s; }
+        /* زهرة اللوتس (🪷) */
+        .lotus {
+            bottom: 130px;
+            left: 40%;
+            animation: float 10s ease-in-out infinite;
+        }
 
-        /* رسالة في الأسفل */
-        .footer {
-            margin-top: 30px;
-            padding: 15px;
+        .lotus .petal {
+            fill: var(--lotus-pink);
+            stroke: #e6b8b8;
+            stroke-width: 0.5;
+            filter: url(#lotus-glow);
+        }
+
+        .lotus .center {
+            fill: var(--primary-white);
+            filter: url(#white-glow);
+        }
+
+        /* وردة ذابلة (🥀) */
+        .wilted-rose {
+            bottom: 150px;
+            left: 10%;
+            animation: wilted-sway 9s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+
+        .wilted-rose .stem {
+            stroke: #5a7d5a;
+            stroke-width: 4;
+            stroke-linecap: round;
+            fill: none;
+            opacity: 0.8;
+        }
+
+        .wilted-rose .petal {
+            fill: var(--wine-red);
+            opacity: 0.7;
+            filter: url(#red-glow);
+        }
+
+        /* أوراق القيقب (🍁) */
+        .maple-leaf {
+            position: absolute;
+            fill: var(--maple-red);
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+            opacity: 0.8;
+            z-index: 1;
+        }
+
+        /* نباتات إضافية */
+        .fern {
+            position: absolute;
+            bottom: 150px;
+            fill: var(--forest-green);
+            opacity: 0.7;
+            z-index: 2;
+        }
+
+        /* الرسوم المتحركة */
+        @keyframes sway {
+            0%, 100% { transform: rotate(-5deg) translateY(0); }
+            50% { transform: rotate(5deg) translateY(-10px); }
+        }
+
+        @keyframes gentle-sway {
+            0%, 100% { transform: translateX(-50%) rotate(-3deg) translateY(0); }
+            50% { transform: translateX(-50%) rotate(3deg) translateY(-5px); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-15px) rotate(1deg); }
+            66% { transform: translateY(-5px) rotate(-1deg); }
+        }
+
+        @keyframes wilted-sway {
+            0%, 100% { transform: rotate(-4deg) translateY(0) scale(0.95); }
+            50% { transform: rotate(4deg) translateY(-5px) scale(1); }
+        }
+
+        @keyframes leaf-float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes particle-float {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+
+        /* العناصر التفاعلية */
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 10;
+            display: flex;
+            gap: 15px;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--primary-white);
+            padding: 12px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* معلومات إضافية */
+        .flower-info {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 300px;
+            z-index: 10;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .flower-info h3 {
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .flower-info p {
+            color: var(--soft-white);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* التأثيرات النصية */
+        .floating-text {
+            position: absolute;
+            color: var(--primary-white);
             font-size: 1.2rem;
-            color: #a0a0a0;
-            text-align: center;
-            font-family: 'Tajawal', sans-serif;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            width: 100%;
-            max-width: 800px;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 5;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
         }
 
-        /* تأثيرات للشاشات الصغيرة */
+        /* تصميم متجاوب */
+        @media (max-width: 1024px) {
+            .garden-container {
+                height: 500px;
+            }
+            
+            .title {
+                font-size: 3.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.8rem;
+            }
+        }
+
         @media (max-width: 768px) {
-            h1 {
+            .garden-container {
+                height: 400px;
+            }
+            
+            .title {
                 font-size: 2.8rem;
             }
             
-            p {
-                font-size: 1.4rem;
+            .subtitle {
+                font-size: 1.5rem;
+                padding: 15px;
             }
             
-            .flower-svg-container {
-                width: 300px;
-                height: 300px;
+            .controls {
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                flex-direction: column;
+                align-items: center;
             }
             
-            .container {
-                padding: 10px;
+            .flower-info {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin: 20px auto;
+                max-width: 90%;
             }
         }
 
         @media (max-width: 480px) {
-            h1 {
+            .garden-container {
+                height: 300px;
+            }
+            
+            .title {
                 font-size: 2.2rem;
             }
             
-            p {
+            .subtitle {
                 font-size: 1.2rem;
-            }
-            
-            .flower-svg-container {
-                width: 250px;
-                height: 250px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- النجوم في الخلفية -->
-    <div class="stars" id="stars"></div>
-
-    <div class="container">
-        <div class="title-container">
-            <h1> ماي كليفر<span class="heart">🍃</span></h1>
-            <p>كلنا نروح فدوة لإيدچ🫶🏻🌿</p>
+    <!-- طبقة الخلفية -->
+    <div class="background-overlay"></div>
+    
+    <!-- الجسيمات المضيئة -->
+    <div id="particles-container"></div>
+    
+    <!-- الحاوية الرئيسية -->
+    <div class="main-container">
+        <!-- الرأس -->
+        <header class="header">
+            <h1 class="title"> سويتي ارتست🌿</h1>
+            <p class="subtitle">كلنا نروح فدوة لإيدچ🫶🏻🍃</p>
+        </header>
+        
+        <!-- الحديقة -->
+        <div class="garden-container">
+            <!-- الأرض -->
+            <div class="ground"></div>
+            
+            <!-- الورود -->
+            <svg class="flower white-rose" width="120" height="250" viewBox="0 0 120 250">
+                <defs>
+                    <filter id="white-glow">
+                        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+                <path class="stem" d="M60 250 Q 65 180, 60 120"/>
+                <g transform="translate(60, 120)">
+                    <circle class="petal" cx="0" cy="-20" r="15"/>
+                    <circle class="petal" cx="17" cy="-7" r="15"/>
+                    <circle class="petal" cx="11" cy="15" r="15"/>
+                    <circle class="petal" cx="-11" cy="15" r="15"/>
+                    <circle class="petal" cx="-17" cy="-7" r="15"/>
+                    <circle class="center" cx="0" cy="0" r="10"/>
+                </g>
+            </svg>
+            
+            <!-- المزيد من الورود سيتم إضافتها بواسطة JavaScript -->
         </div>
     </div>
-
-    <div class="flower-svg-container floating">
-        <svg viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg">
-            <!-- تعريفات التوهج -->
-            <defs>
-                <filter id="glow">
-                    <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-                    <feMerge>
-                        <feMergeNode in="coloredBlur"/>
-                        <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                </filter>
-                <filter id="glow-gold">
-                    <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
-                    <feMerge>
-                        <feMergeNode in="coloredBlur"/>
-                        <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                </filter>
-            </defs>
-            
-            <!-- الزهرة الرئيسية -->
-            <g class="swaying-flower">
-                <path class="flower-stem" d="M100 220 Q 105 170, 100 120" />
-                <path class="flower-leaf waving-leaf" d="M100 170 Q 80 155, 75 135 Q 95 140, 100 170 Z" style="animation-delay: 0.5s;" />
-                <path class="flower-leaf waving-leaf" d="M100 150 Q 120 135, 125 115 Q 105 120, 100 150 Z" style="animation-delay: 1s;" />
-
-                <g transform="translate(100, 120)">
-                    <circle class="flower-petal petal-1 glowing-petal" cx="0" cy="-18" r="14" />
-                    <circle class="flower-petal petal-2 glowing-petal" cx="16" cy="-6" r="14" />
-                    <circle class="flower-petal petal-3 glowing-petal" cx="10" cy="15" r="14" />
-                    <circle class="flower-petal petal-4 glowing-petal" cx="-10" cy="15" r="14" />
-                    <circle class="flower-petal petal-5 glowing-petal" cx="-16" cy="-6" r="14" />
-                    <circle class="flower-center" cx="0" cy="0" r="9" />
-                </g>
-            </g>
-            
-            <!-- زهرة جانبية يسرى -->
-            <g class="swaying-flower" style="animation-duration: 7s; animation-delay: -2s;">
-                <path class="flower-stem" d="M70 220 Q 75 180, 60 140" />
-                <path class="flower-leaf waving-leaf" d="M65 180 Q 45 165, 40 145 Q 60 150, 65 180 Z" style="animation-delay: 0.8s;" />
-                <g transform="translate(60, 140) scale(0.8)">
-                    <circle class="flower-petal petal-1 glowing-petal" cx="0" cy="-18" r="14" />
-                    <circle class="flower-petal petal-2 glowing-petal" cx="16" cy="-6" r="14" />
-                    <circle class="flower-petal petal-3 glowing-petal" cx="10" cy="15" r="14" />
-                    <circle class="flower-petal petal-4 glowing-petal" cx="-10" cy="15" r="14" />
-                    <circle class="flower-petal petal-5 glowing-petal" cx="-16" cy="-6" r="14" />
-                    <circle class="flower-center" cx="0" cy="0" r="9" />
-                </g>
-            </g>
-
-            <!-- زهرة جانبية يمنى -->
-            <g class="swaying-flower" style="animation-duration: 6.5s; animation-delay: -1s;">
-                <path class="flower-stem" d="M130 220 Q 125 180, 140 140" />
-                <path class="flower-leaf waving-leaf" d="M135 180 Q 155 165, 160 145 Q 140 150, 135 180 Z" style="animation-delay: 0.3s;" />
-                <g transform="translate(140, 140) scale(0.8)">
-                    <circle class="flower-petal petal-1 glowing-petal" cx="0" cy="-18" r="14" />
-                    <circle class="flower-petal petal-2 glowing-petal" cx="16" cy="-6" r="14" />
-                    <circle class="flower-petal petal-3 glowing-petal" cx="10" cy="15" r="14" />
-                    <circle class="flower-petal petal-4 glowing-petal" cx="-10" cy="15" r="14" />
-                    <circle class="flower-petal petal-5 glowing-petal" cx="-16" cy="-6" r="14" />
-                    <circle class="flower-center" cx="0" cy="0" r="9" />
-                </g>
-            </g>
-            
-            <!-- بعض الورود الصغيرة الإضافية -->
-            <g class="swaying-flower" style="animation-duration: 8s; animation-delay: -3s; opacity: 0.7;">
-                <path class="flower-stem" d="M30 220 Q 40 200, 35 175" stroke-width="3" />
-                <g transform="translate(35, 175) scale(0.5)">
-                    <circle class="flower-petal" cx="0" cy="-15" r="12" fill="#e8b89c" />
-                    <circle class="flower-petal" cx="14" cy="-5" r="12" fill="#e8b89c" />
-                    <circle class="flower-petal" cx="9" cy="12" r="12" fill="#e8b89c" />
-                    <circle class="flower-petal" cx="-9" cy="12" r="12" fill="#e8b89c" />
-                    <circle class="flower-petal" cx="-14" cy="-5" r="12" fill="#e8b89c" />
-                    <circle class="flower-center" cx="0" cy="0" r="7" fill="#f5e050" />
-                </g>
-            </g>
-        </svg>
+    
+    <!-- معلومات الورود -->
+    <div class="flower-info">
+        <h3><i class="fas fa-seedling"></i> حديقة سوسو </h3>
+        <p>اختاري الي يعجبچ منهن</p>
+        <p style="margin-top: 10px; font-size: 0.9rem; color: var(--soft-gold);"><i class="fas fa-lightbulb"></i> انقرِ على أي وردة لرؤية اسمها ومعناها</p>
     </div>
-
-    <div class="footer">
-        سويتي ارتست🍃
+    
+    <!-- عناصر التحكم -->
+    <div class="controls">
+        <button class="control-btn" id="moreParticles">
+            <i class="fas fa-magic"></i> المزيد من الجسيمات
+        </button>
+        <button class="control-btn" id="changeScene">
+            <i class="fas fa-moon"></i> تغيير المشهد
+        </button>
+        <button class="control-btn" id="addFlower">
+            <i class="fas fa-plus"></i> إضافة وردة
+        </button>
     </div>
 
     <script>
-        // إنشاء النجوم الديناميكية
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            const starCount = 150;
+        // تهيئة الجسيمات المضيئة
+        class ParticleSystem {
+            constructor() {
+                this.container = document.getElementById('particles-container');
+                this.particles = [];
+                this.maxParticles = 150;
+                this.createParticles();
+                this.animateParticles();
+            }
             
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
+            createParticles() {
+                for (let i = 0; i < this.maxParticles; i++) {
+                    this.createParticle();
+                }
+            }
+            
+            createParticle() {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
                 
-                // حجم عشوائي للنجوم
-                const size = Math.random() * 3 + 1;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
+                // أنواع الجسيمات
+                const types = ['gold-particle', 'white-particle', 'pink-particle'];
+                const type = types[Math.floor(Math.random() * types.length)];
+                particle.classList.add(type);
+                
+                // حجم عشوائي
+                const size = Math.random() * 6 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
                 
                 // موقع عشوائي
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
+                const startX = Math.random() * 100;
+                const startY = Math.random() * 100 + 100;
+                particle.style.left = `${startX}%`;
+                particle.style.top = `${startY}%`;
                 
-                // تأخير عشوائي للوميض
-                star.style.animationDelay = `${Math.random() * 5}s`;
+                // خصائص الرسوم المتحركة
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                const endX = Math.random() * 200 - 100;
                 
-                starsContainer.appendChild(star);
+                particle.style.animation = `
+                    particle-float ${duration}s ease-in-out ${delay}s infinite
+                `;
+                
+                this.container.appendChild(particle);
+                this.particles.push({
+                    element: particle,
+                    startX: startX,
+                    startY: startY,
+                    duration: duration
+                });
+            }
+            
+            animateParticles() {
+                this.particles.forEach(p => {
+                    // تحديث الرسوم المتحركة بشكل مستمر
+                });
+            }
+            
+            addMoreParticles(count) {
+                for (let i = 0; i < count; i++) {
+                    setTimeout(() => this.createParticle(), i * 100);
+                }
             }
         }
         
-        // تأثيرات تفاعلية عند التمرير
-        function handleScroll() {
-            const scrollY = window.scrollY || window.pageYOffset;
-            const flowerContainer = document.querySelector('.flower-svg-container');
-            const titleContainer = document.querySelector('.title-container');
-            
-            // تأثير parallax خفيف
-            if (flowerContainer) {
-                flowerContainer.style.transform = `translateY(${scrollY * 0.05}px)`;
+        // إدارة الحديقة
+        class GardenManager {
+            constructor() {
+                this.garden = document.querySelector('.garden-container');
+                this.flowers = [];
+                this.flowerTypes = [
+                    { name: "وردة بيضاء", emoji: "🌹", color: "#ffffff", type: "white" },
+                    { name: "باقة زهور", emoji: "💐", color: "#ffb6c1", type: "bouquet" },
+                    { name: "زنبق", emoji: "🪻", color: "#c8a2c8", type: "hyacinth" },
+                    { name: "لوتس", emoji: "🪷", color: "#f4c2c2", type: "lotus" },
+                    { name: "وردة ذابلة", emoji: "🥀", color: "#722f37", type: "wilted" },
+                    { name: "ورقة قيقب", emoji: "🍁", color: "#d2691e", type: "maple" }
+                ];
+                
+                this.initGarden();
+                this.setupInteractions();
             }
             
-            // تأثير التلاشي الخفيف
-            if (titleContainer) {
-                const opacity = 1 - (scrollY / 500);
-                titleContainer.style.opacity = Math.max(opacity, 0.7);
+            initGarden() {
+                // إنشاء أنواع مختلفة من الورود
+                this.createFlower(20, 150, "white");
+                this.createFlower(50, 180, "bouquet");
+                this.createFlower(70, 160, "hyacinth");
+                this.createFlower(40, 130, "lotus");
+                this.createFlower(10, 170, "wilted");
+                this.createFlower(85, 140, "maple");
+                this.createFlower(30, 120, "white");
+                this.createFlower(60, 190, "bouquet");
+                
+                // إضافة أوراق نباتات
+                this.createFern(15, 155);
+                this.createFern(80, 165);
+                this.createFern(45, 175);
             }
-        }
-        
-        // تهيئة الصفحة
-        document.addEventListener('DOMContentLoaded', function() {
-            createStars();
-            window.addEventListener('scroll', handleScroll);
             
-            // تأثير كتابة النص (اختياري)
-            const text = "كلنا نروح فدوة لإيدچ🫶🏻🌿";
-            const textElement = document.querySelector('p');
+            createFlower(xPercent, bottom, type) {
+                const flower = document.createElement('div');
+                flower.className = `flower ${type}-flower`;
+                flower.style.left = `${xPercent}%`;
+                flower.style.bottom = `${bottom}px`;
+                
+                // حجم عشوائي
+                const scale = Math.random() * 0.4 + 0.8;
+                flower.style.transform = `scale(${scale})`;
+                
+                // تأخير عشوائي للرسوم المتحركة
+                const delay = Math.random() * 5;
+                flower.style.animationDelay = `${delay}s`;
+                
+                // محتوى SVG للوردة
+                const flowerType = this.flowerTypes.find(f => f.type === type);
+                if (flowerType) {
+                    flower.innerHTML = this.getFlowerSVG(type, flowerType.color);
+                    flower.dataset.name = flowerType.name;
+                    flower.dataset.emoji = flowerType.emoji;
+                }
+                
+                this.garden.appendChild(flower);
+                this.flowers.push(flower);
+                
+                // إضافة تفاعل النقر
+                flower.addEventListener('click', () => this.showFlowerInfo(flower));
+                
+                return flower;
+            }
             
-            if (textElement) {
-                textElement.textContent = "";
-                let i = 0;
-                const typeWriter = () => {
-                    if (i < text.length) {
-                        textElement.textContent += text.charAt(i);
-                        i++;
-                        setTimeout(typeWriter, 50);
-                    }
+            getFlowerSVG(type, color) {
+                // SVG مبسطة لأنواع الورود المختلفة
+                const svgs = {
+                    white: `
+                        <svg width="80" height="120" viewBox="0 0 80 120">
+                            <path class="stem" d="M40 120 Q 45 80, 40 50" stroke="#228b22" stroke-width="4" fill="none"/>
+                            <g transform="translate(40, 50)">
+                                <circle cx="0" cy="-12" r="10" fill="${color}" filter="url(#white-glow)"/>
+                                <circle cx="11" cy="-4" r="10" fill="${color}" filter="url(#white-glow)"/>
+                                <circle cx="7" cy="10" r="10" fill="${color}" filter="url(#white-glow)"/>
+                                <circle cx="-7" cy="10" r="10" fill="${color}" filter="url(#white-glow)"/>
+                                <circle cx="-11" cy="-4" r="10" fill="${color}" filter="url(#white-glow)"/>
+                                <circle cx="0" cy="0" r="6" fill="#f3e5ab"/>
+                            </g>
+                        </svg>`,
+                    bouquet: `
+                        <svg width="100" height="130" viewBox="0 0 100 130">
+                            <path class="stem" d="M50 130 Q 55 90, 50 60" stroke="#50c878" stroke-width="6" fill="none"/>
+                            <circle cx="40" cy="40" r="12" class="flower-1" fill="#ffb6c1"/>
+                            <circle cx="60" cy="35" r="10" class="flower-2" fill="#ffffff"/>
+                            <circle cx="50" cy="25" r="11" class="flower-3" fill="#c8a2c8"/>
+                            <path class="leaf" d="M50 70 Q 30 65, 45 50" fill="#50c878"/>
+                            <path class="leaf" d="M50 70 Q 70 65, 55 50" fill="#50c878"/>
+                        </svg>`,
+                    maple: `
+                        <svg width="60" height="60" viewBox="0 0 60 60" class="maple-leaf">
+                            <path d="M30 5 C 40 10, 50 20, 55 30 C 50 40, 40 50, 30 55 C 20 50, 10 40, 5 30 C 10 20, 20 10, 30 5 Z" 
+                                  fill="${color}" opacity="0.9"/>
+                        </svg>`
                 };
                 
-                // بدء تأثير الكتابة بعد تأخير قصير
-                setTimeout(typeWriter, 1000);
+                return svgs[type] || svgs.white;
             }
+            
+            createFern(xPercent, bottom) {
+                const fern = document.createElement('div');
+                fern.className = 'fern';
+                fern.style.left = `${xPercent}%`;
+                fern.style.bottom = `${bottom}px`;
+                
+                const svg = `
+                    <svg width="40" height="60" viewBox="0 0 40 60">
+                        <path d="M20 60 Q 15 40, 20 30 Q 10 35, 5 20 Q 15 25, 20 10 Q 25 25, 35 20 Q 30 35, 20 30 Q 25 40, 20 60" 
+                              fill="#228b22" opacity="0.7"/>
+                    </svg>
+                `;
+                
+                fern.innerHTML = svg;
+                this.garden.appendChild(fern);
+            }
+            
+            showFlowerInfo(flower) {
+                const name = flower.dataset.name || "زهرة جميلة";
+                const emoji = flower.dataset.emoji || "🌺";
+                
+                // إنشاء نص عائم
+                const floatingText = document.createElement('div');
+                floatingText.className = 'floating-text';
+                floatingText.textContent = `${emoji} ${name}`;
+                floatingText.style.left = flower.style.left;
+                floatingText.style.bottom = flower.style.bottom;
+                
+                document.body.appendChild(floatingText);
+                
+                // رسوم متحركة للنص
+                const animation = floatingText.animate([
+                    { bottom: flower.style.bottom, opacity: 1 },
+                    { bottom: 'calc(' + flower.style.bottom + ' + 100px)', opacity: 0 }
+                ], {
+                    duration: 2000,
+                    easing: 'ease-out'
+                });
+                
+                animation.onfinish = () => floatingText.remove();
+                
+                // تحديث معلومات الزهرة
+                const infoBox = document.querySelector('.flower-info');
+                infoBox.innerHTML = `
+                    <h3><i class="fas fa-info-circle"></i> ${name}</h3>
+                    <p>${this.getFlowerDescription(name)}</p>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: #f3e5ab;">
+                        <i class="fas fa-lightbulb"></i> انقرِ على وردة أخرى لمعرفة المزيد
+                    </p>
+                `;
+                
+                // تأثير اهتزاز خفيف للزهرة
+                flower.style.transform = flower.style.transform + ' scale(1.1)';
+                setTimeout(() => {
+                    flower.style.transform = flower.style.transform.replace(' scale(1.1)', '');
+                }, 300);
+            }
+            
+            getFlowerDescription(name) {
+                const descriptions = {
+                    "وردة بيضاء": "تمثل النقاء والبراءة والحب النظيف الذي لا تشوبه شوائب.",
+                    "باقة زهور": "تعبر عن التقدير والامتنان وروعة التنوع في المشاعر.",
+                    "زنبق": "رمز للنقاء والجمال الروحي والتفاني في الحب.",
+                    "لوتس": "يمثل التنوير والجمال الروحي والنقاء الذي ينبع من الداخل.",
+                    "وردة ذابلة": "تذكرنا بجمال الذكريات والحب الذي يبقى رغم مرور البلوكات.",
+                    "ورقة قيقب": "تمثل والنمو والتحول الجميل في العلاقات."
+                };
+                
+                return descriptions[name] || "زهرة جميلة بس زهراء احله منها.";
+            }
+            
+            setupInteractions() {
+                // زر إضافة المزيد من الجسيمات
+                document.getElementById('moreParticles').addEventListener('click', () => {
+                    particleSystem.addMoreParticles(30);
+                    this.showMessage("تمت إضافة جسيمات مضيئة جديدة!");
+                });
+                
+                // زر تغيير المشهد
+                document.getElementById('changeScene').addEventListener('click', () => {
+                    this.changeScene();
+                });
+                
+                // زر إضافة وردة
+                document.getElementById('addFlower').addEventListener('click', () => {
+                    const x = Math.random() * 80 + 10;
+                    const typeIndex = Math.floor(Math.random() * this.flowerTypes.length);
+                    const type = this.flowerTypes[typeIndex].type;
+                    
+                    this.createFlower(x, 150, type);
+                    this.showMessage(`تمت إضافة ${this.flowerTypes[typeIndex].name} إلى الحديقة!`);
+                });
+            }
+            
+            changeScene() {
+                const body = document.body;
+                const isDay = body.classList.contains('day-scene');
+                
+                if (isDay) {
+                    body.classList.remove('day-scene');
+                    body.style.background = 'radial-gradient(ellipse at center, #0a0c14 0%, #050709 70%, #1a1f2e 100%)';
+                    this.showMessage("تم التبديل إلى المشهد الليلي ");
+                } else {
+                    body.classList.add('day-scene');
+                    body.style.background = 'radial-gradient(ellipse at center, #87CEEB 0%, #1E90FF 70%, #0a0c14 100%)';
+                    this.showMessage("تم التبديل إلى مشهد النهار ");
+                }
+            }
+            
+            showMessage(text) {
+                const message = document.createElement('div');
+                message.className = 'floating-text';
+                message.textContent = text;
+                message.style.left = '50%';
+                message.style.top = '50%';
+                message.style.transform = 'translate(-50%, -50%)';
+                message.style.fontSize = '1.5rem';
+                message.style.color = '#ffd700';
+                
+                document.body.appendChild(message);
+                
+                const animation = message.animate([
+                    { opacity: 0, transform: 'translate(-50%, -50%) scale(0.8)' },
+                    { opacity: 1, transform: 'translate(-50%, -50%) scale(1.1)' },
+                    { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' },
+                    { opacity: 0, transform: 'translate(-50%, -100%) scale(0.9)' }
+                ], {
+                    duration: 3000,
+                    easing: 'ease-in-out'
+                });
+                
+                animation.onfinish = () => message.remove();
+            }
+        }
+        
+        // تهيئة التطبيق
+        document.addEventListener('DOMContentLoaded', () => {
+            const particleSystem = new ParticleSystem();
+            const gardenManager = new GardenManager();
+            
+            // جعل المتغيرات متاحة عالمياً للتفاعل
+            window.particleSystem = particleSystem;
+            window.gardenManager = gardenManager;
+            
+            // إضافة أوراق متساقطة
+            function createFallingLeaves() {
+                setInterval(() => {
+                    const leaf = document.createElement('div');
+                    leaf.className = 'maple-leaf';
+                    leaf.style.left = `${Math.random() * 100}%`;
+                    leaf.style.top = `-50px`;
+                    
+                    const size = Math.random() * 30 + 20;
+                    leaf.style.width = `${size}px`;
+                    leaf.style.height = `${size}px`;
+                    
+                    const rotation = Math.random() * 360;
+                    leaf.style.transform = `rotate(${rotation}deg)`;
+                    
+                    document.querySelector('.garden-container').appendChild(leaf);
+                    
+                    // رسوم متحركة للسقوط
+                    const animation = leaf.animate([
+                        { top: '-50px', opacity: 0, transform: `rotate(${rotation}deg) scale(0.5)` },
+                        { top: '20%', opacity: 1, transform: `rotate(${rotation + 90}deg) scale(1)` },
+                        { top: '100%', opacity: 0, transform: `rotate(${rotation + 180}deg) scale(0.5)` }
+                    ], {
+                        duration: Math.random() * 5000 + 5000,
+                        easing: 'ease-in-out'
+                    });
+                    
+                    animation.onfinish = () => leaf.remove();
+                }, 2000);
+            }
+            
+            // بدء تساقط الأوراق بعد تأخير
+            setTimeout(createFallingLeaves, 1000);
+            
+            // إضافة تأثيرات تفاعلية إضافية
+            document.addEventListener('mousemove', (e) => {
+                const particles = document.querySelectorAll('.particle');
+                const mouseX = e.clientX / window.innerWidth;
+                const mouseY = e.clientY / window.innerHeight;
+                
+                // تأثير طفيف على الجسيمات القريبة من المؤشر
+                particles.forEach(particle => {
+                    const rect = particle.getBoundingClientRect();
+                    const particleX = rect.left + rect.width / 2;
+                    const particleY = rect.top + rect.height / 2;
+                    
+                    const distance = Math.sqrt(
+                        Math.pow(e.clientX - particleX, 2) + 
+                        Math.pow(e.clientY - particleY, 2)
+                    );
+                    
+                    if (distance < 100) {
+                        particle.style.transform = `translate(${(e.clientX - particleX) * 0.1}px, ${(e.clientY - particleY) * 0.1}px)`;
+                        particle.style.opacity = '1';
+                    }
+                });
+            });
         });
     </script>
 </body>
